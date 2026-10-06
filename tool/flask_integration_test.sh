@@ -27,7 +27,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
-(cd "$WORK" && VIEWER_UPLOAD_TOKEN="$TOKEN" VIEWER_HOST=127.0.0.1 VIEWER_PORT="$PORT" \
+(cd "$WORK" && VIEWER_UPLOAD_TOKEN="$TOKEN" VIEWER_LIBRARY_DIR="$WORK/library" VIEWER_HOST=127.0.0.1 VIEWER_PORT="$PORT" \
   exec "$VENV/bin/python" server.py >"$WORK/server.log" 2>&1) &
 SERVER_PID=$!
 
