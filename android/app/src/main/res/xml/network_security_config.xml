@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  LAN 上の Flask ビュワーへ HTTP で送るため、平文の通信を許可する。
+  サーバーの IP を変えてもビルドし直さずに済むよう宛先は限定しない。
+  代わりにアプリ側（lib/src/settings.dart の validateServerUrl）で、
+  http の宛先をプライベート IP と .local に限っている。
+-->
+<network-security-config>
+  <base-config cleartextTrafficPermitted="true" />
+</network-security-config>

@@ -180,11 +180,10 @@ CREATE TABLE failures (
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-  <domain-config cleartextTrafficPermitted="true">
-    <domain includeSubdomains="false">192.168.x.x</domain>
-  </domain-config>
+  <base-config cleartextTrafficPermitted="true" />
 </network-security-config>
 ```
+宛先は限定しない（サーバーのIPを変えてもビルドし直さずに済むようにする）。代わりにアプリ側で、http の宛先をプライベートIPアドレスと `.local` の名前に限る。
 `AndroidManifest.xml` の `<application>` に `android:networkSecurityConfig="@xml/network_security_config"` を追加する。
 
 ## 11. エラー時の動作

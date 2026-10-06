@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project status
 
-Nightdrop is a personal Flutter (Android-only) app. The full spec lives in `docs/nightdrop-spec.md` (Japanese) and is the source of truth — read it before implementing anything. Spec steps 1–2 are implemented (as of 2026-10-06). WorkManager scheduling, notifications, the history screen, the bulk-send UI and the cleartext-HTTP network config are not done yet.
+Nightdrop is a personal Flutter (Android-only) app. The full spec lives in `docs/nightdrop-spec.md` (Japanese) and is the source of truth — read it before implementing anything. Spec steps 1–2 are implemented (as of 2026-10-06). WorkManager scheduling, notifications, the history screen and the bulk-send UI are not done yet.
 
 The receiving server is a separate, already-implemented project at `../local-image-viewer/` (Flask: `server.py` routes, `receiver.py` logic). Its `README.md` section "API（Nightdrop向け）" is the authoritative wire contract; if it disagrees with the Nightdrop spec, the server wins. Don't change the server to fit the app without the user's consent.
 
@@ -69,4 +69,4 @@ Shared invariants:
 ## Android platform setup
 
 - Permissions: `MANAGE_EXTERNAL_STORAGE` (granted from the system settings screen), `POST_NOTIFICATIONS` (runtime), `INTERNET`, the Nearby devices permission for local-network access on Android 17+ (runtime), and an optional battery-optimization exemption prompt.
-- Cleartext HTTP to the LAN server needs `android/app/src/main/res/xml/network_security_config.xml` (domain-scoped `cleartextTrafficPermitted="true"`). Reference it from `<application android:networkSecurityConfig=...>`. The spec uses `192.168.x.x` as a placeholder for the server IP.
+- Cleartext HTTP: `android/app/src/main/res/xml/network_security_config.xml` permits cleartext for all hosts (`base-config`), so changing the server IP doesn't require a rebuild. This deviates from the spec's domain-scoped example on purpose, with the user's approval. The real guard is `validateServerUrl` (http → private IPv4 / `.local` only); keep the two in sync.
